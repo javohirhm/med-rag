@@ -1,0 +1,54 @@
+# Core Dependencies
+python-telegram-bot==20.7
+google-generativeai==0.3.2
+python-dotenv==1.0.0
+
+# RAG & Vector Store
+chromadb==0.4.22
+langchain==0.1.0
+langchain-community==0.0.10
+sentence-transformers==2.3.1
+
+# Document Processing
+pypdf==4.0.1
+pdfplumber==0.10.4
+unstructured==0.11.8
+python-magic==0.4.27
+
+# Database & Storage
+sqlalchemy==2.0.25
+alembic==1.13.1
+
+# API & Web
+aiohttp==3.9.1
+requests==2.31.0
+httpx==0.25.2
+
+# Data Processing
+numpy==1.26.3
+pandas==2.1.4
+
+# NLP & Text Processing
+nltk==3.8.1
+spacy==3.7.2
+tiktoken==0.5.2
+
+# Utilities
+pyyaml==6.0.1
+loguru==0.7.2
+tenacity==8.2.3
+tqdm==4.66.1
+
+# Development & Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+black==23.12.1
+flake8==7.0.0
+mypy==1.8.0
+
+# Monitoring & Observability
+prometheus-client==0.19.0
+
+# Optional: Faster inference
+faiss-cpu==1.7.4

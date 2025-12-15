@@ -1,0 +1,112 @@
+rag:
+  # Document Processing
+  chunk_size: 800
+  chunk_overlap: 200
+  min_chunk_size: 100
+  
+  # Retrieval
+  top_k: 5
+  similarity_threshold: 0.7
+  rerank: false
+  
+  # Embedding
+  embedding_model: "models/text-embedding-004"
+  embedding_dimension: 768
+  batch_size: 32
+  
+  # LLM
+  model: "gemini-2.5-flash"
+  temperature: 0.3
+  max_tokens: 2048
+  top_p: 0.95
+  top_k_llm: 40
+
+telegram:
+  # Bot Settings
+  parse_mode: "Markdown"
+  max_message_length: 4096
+  typing_action: true
+  
+  # Commands
+  commands:
+    - command: "start"
+      description: "Start the bot"
+    - command: "help"
+      description: "Get help"
+    - command: "clear"
+      description: "Clear conversation history"
+    - command: "stats"
+      description: "View statistics"
+  
+  # Rate Limiting
+  rate_limit:
+    requests_per_minute: 10
+    requests_per_hour: 100
+
+vector_store:
+  type: "chromadb"
+  persist_directory: "./chroma_db"
+  collection_name: "cardiology_handbook"
+  
+  # Distance metric: l2, cosine, ip
+  distance_metric: "cosine"
+  
+  # HNSW parameters for performance
+  hnsw_space: "cosine"
+  hnsw_construction_ef: 200
+  hnsw_search_ef: 100
+
+logging:
+  level: "INFO"
+  format: "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
+  rotation: "500 MB"
+  retention: "10 days"
+  log_file: "logs/bot.log"
+
+prompts:
+  system: |
+    You are a medical assistant specializing in cardiology, with access to information from the Oxford Handbook of Cardiology.
+    
+    Your role:
+    - Provide accurate, evidence-based information about cardiovascular conditions
+    - Explain complex medical concepts in clear language
+    - Reference the handbook content when available
+    - Always emphasize that your advice is informational, not a substitute for professional medical consultation
+    - Be cautious and conservative in your recommendations
+    
+    Guidelines:
+    - Use the provided context to answer questions
+    - If information is not in the context, clearly state this
+    - Cite relevant sections when possible
+    - For emergency situations, always advise seeking immediate medical attention
+    - Never provide specific treatment recommendations without proper context
+  
+  query_template: |
+    Based on the following context from the Oxford Handbook of Cardiology, please answer the question.
+    
+    Context:
+    {context}
+    
+    Question: {question}
+    
+    Please provide a comprehensive, accurate answer. If the context doesn't contain enough information, acknowledge this limitation.
+  
+  greeting: |
+    👋 Welcome to the Cardiology Assistant!
+    
+    I can help you with questions about cardiovascular medicine based on the Oxford Handbook of Cardiology.
+    
+    Just ask me any cardiology-related question, and I'll provide information from the handbook.
+    
+    ⚠️ Note: This is for educational purposes only. Always consult healthcare professionals for medical advice.
+
+cache:
+  enabled: true
+  ttl: 3600  # 1 hour
+  max_size: 1000
+
+monitoring:
+  enable_metrics: true
+  metrics_port: 9090
+  track_response_time: true
+  track_query_patterns: true
